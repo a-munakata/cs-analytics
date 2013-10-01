@@ -8,6 +8,5 @@ class User < ActiveRecord::Base
 
   attr_accessible :name, :email, :job_domain_id, :temp_role, as: :admin
 
-  serialize :completed_tutorial, Array
-
+  serialize :completed_tutorial, Array  
 end

@@ -37,6 +37,8 @@ GEM
     better_errors (1.0.1)
       coderay (>= 1.0.0)
       erubis (>= 2.6.6)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.0.4)
     capistrano (2.15.5)
       highline
@@ -63,6 +65,8 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
+    debug_inspector (0.0.2)
+    ejs (1.1.1)
     erubis (2.7.0)
     execjs (2.0.2)
     fssm (0.2.10)
@@ -174,12 +178,14 @@ PLATFORMS
 DEPENDENCIES
   aws-sdk
   better_errors
+  binding_of_caller
   capistrano
   capistrano-ext
   capistrano_colors
   coffee-rails (~> 3.2.1)
   compass
   compass-rails
+  ejs
   haml
   haml-rails
   jquery-rails

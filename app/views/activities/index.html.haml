@@ -1,0 +1,16 @@
+= content_for :body do
+  .chart{ data: { chart: @users_chart } }
+  
+  / = form_for :users , :remote => true, :method => :post do |f|
+  /   / %select{:name => "range"}
+  /   /   - 10.times do |n|
+  /   /     %option
+  /   /       = n
+  /   = f.text_field :text
+  /   = f.submit 'save'
+  
+  / = form_tag(url_for(:action => 'index'), :remote => true, :id => "result_form") do
+  /   = text_field_tag :text
+  /   = submit_tag "show"
+
+  #result

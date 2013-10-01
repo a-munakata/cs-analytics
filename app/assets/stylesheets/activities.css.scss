@@ -1,0 +1,45 @@
+@import "compass";
+.chart-area {
+  position: relative;
+
+  .graph-switches {
+    position: absolute;
+    z-index: 10;
+    top: 10px;
+    right: 50px;
+    zoom:1;
+    &:after{ content: ""; display: block; clear: both; }
+
+    > li {
+      @include float-left;
+      margin: 0px 1px 1px 0px;
+    }
+  }
+
+  .ir.bar {
+    width: 30px;
+    padding-left: 30px;
+    height: 31px;
+    background-image: url(/assets/segments/bar.png);
+  }
+
+  .ir.pie {
+    width: 30px;
+    padding-left: 30px;
+    height: 31px;
+    background-image: url(/assets/segments/pie.png);
+  }
+  @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+    .ir.bar {
+      background-image: url(/assets/segments@2x/bar.png);
+      background-size: 30px 62px;
+    }
+  }
+
+  .answer-item-chart, .sub-item-chart { width: 100%; }
+  .answer-item-chart { position: absolute; z-index: -1; visibility: hidden; }
+  .sub-item-chart { position: relative; z-index: 0; visibility: visible; }
+  #result-text-matrix-tab-state:checked ~ .answer-item-chart { position: relative; z-index: 0; visibility: visible; }
+  #result-text-matrix-tab-state:checked ~ .sub-item-chart { position: absolute; z-index: -1; visibility: hidden; }
+
+}
