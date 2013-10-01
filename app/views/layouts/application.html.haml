@@ -20,6 +20,12 @@
             = link_to "#{ENV["APPLICATION_NAME"]}", root_url
     .main
       .inner
+        .control
+          %ul
+            %li
+              = link_to "#", class: "to_index" do
+                .ir.add add
+                .ir Users
         .content
           =yield :body
 

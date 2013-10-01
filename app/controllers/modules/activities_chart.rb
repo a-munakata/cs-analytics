@@ -1,8 +1,10 @@
 #encoding: utf-8
 
 module  ActivitiesChart
-   def monthly_users_chart(users,n)
-      monthly_users_count = Hash[*monthly_users_count(users,n).flatten]
+   def monthly_users_chart(users,waiters,n)
+      monthly_users_count = Hash[*monthly_users_count(users,waiters,n)[0].flatten]
+      monthly_waiters_count = Hash[*monthly_users_count(users,waiters,n)[1].flatten]
+
       basic_chart_option.deep_merge({
       title: {
           text: "月ごとのユーザー数"
@@ -18,6 +20,39 @@ module  ActivitiesChart
       series: [{
           name: 'ユーザー数',
           data: monthly_users_count.values
+      },
+      {
+          name: 'ウエイター数',
+          data: monthly_waiters_count.values
+      }]
+    })
+  end
+
+  def daily_users_chart(users,waiters,n)
+      daily_users_count = Hash[*daily_users_count(users,waiters,n)[0].flatten]
+      daily_waiters_count = Hash[*daily_users_count(users,waiters,n)[1].flatten]
+      basic_chart_option.deep_merge({
+      title: {
+          text: "最近1ヶ月のユーザー推移"
+      },
+      xAxis: {
+          categories: daily_users_count.keys,
+          labels: {
+            step: 5
+          }
+      },
+      yAxis: {
+          title: {
+              text: 'users'
+          }
+      },
+      series: [{
+          name: 'ユーザー数',
+          data: daily_users_count.values
+      },
+      {
+          name: 'ウエイター数',
+          data: daily_waiters_count.values
       }]
     })
   end
@@ -90,18 +125,40 @@ module  ActivitiesChart
     }
   end
 
-  def monthly_users_count(users, n)
-    this_month = n
-    last_month = n - 1
+  def monthly_users_count(users, waiters, n)
+    start_period = n - 1
+    end_period   = n
+    
+    [users, waiters].collect do |who|
 
-    n.times.collect do |m|
-      [
-          (Time.now.change(:day => 1,:hour => 0, :min => 0, :sec => 0) - (last_month-m).months ).strftime("%m/%d"),
-          users.
-              where("created_at < ?", (Time.now.end_of_month.change(:hour => 0, :min => 0, :sec => 0) - (last_month-m).months ) ).
-              where("created_at > ?", (Time.now.change(:day => 1, :hour => 0, :min => 0, :sec => 0) - (this_month-m).months ) ).
-              count
-      ]
+      n.times.collect do |m|
+        [
+            (Time.now.change(:day => 1,:hour => 0, :min => 0, :sec => 0) - (start_period-m).months ).strftime("%m/%d"),
+            who.
+                where("created_at < ?", (Time.now.end_of_month.change(:hour => 0, :min => 0, :sec => 0) - (start_period-m).months ) ).
+                where("created_at > ?", (Time.now.change(:day => 1, :hour => 0, :min => 0, :sec => 0) - (end_period-m).months ) ).
+                count
+        ]
+      end
+
+    end    
+  end
+
+  def daily_users_count(users, waiters, n)    
+    start_period = n - 1
+    end_period   = n    
+
+    [users, waiters].collect do |who|
+
+      n.times.collect do |d|
+        [
+            (Time.now.change(:hour => 0, :min => 0, :sec => 0) - (start_period-d).days ).strftime("%m/%d"),
+            who.
+                where("created_at < ?", (Time.now.change(:hour => 0, :min => 0, :sec => 0) - (start_period-d).days ) ).
+                where("created_at > ?", (Time.now.change(:hour => 0, :min => 0, :sec => 0) - (end_period-d).days ) ).
+                count
+        ]
+      end
     end
   end
 

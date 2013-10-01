@@ -1,5 +1,6 @@
 = content_for :body do
-  .chart{ data: { chart: @users_chart } }
+  .chart{ data: { chart: @monthly_users_chart } }
+  .chart{ data: { chart: @daily_users_chart } }
   
   / = form_for :users , :remote => true, :method => :post do |f|
   /   / %select{:name => "range"}
