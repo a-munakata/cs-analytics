@@ -10,10 +10,10 @@ class ActivitiesController < ApplicationController
     @users = User
     @waiters = Waiter
 
-    @monthly_users_chart = monthly_users_chart(@users, @waiters, @months_limit).to_json
-    @daily_users_chart = daily_users_chart(@users, @waiters, @days_limit).to_json
-
-    # @charts = [@monthly_users_chart, @weekly_users_chart]
+    @monthly_users_chart = users_chart(@users, @waiters, @months_limit, "monthly").to_json
+    @daily_users_chart   = users_chart(@users, @waiters, @days_limit, "daily").to_json
+    
+    @charts = [@monthly_users_chart, @daily_users_chart]
 
     respond_to do |format|
       format.html

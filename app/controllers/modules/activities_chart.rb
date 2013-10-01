@@ -1,61 +1,40 @@
 #encoding: utf-8
 
 module  ActivitiesChart
-   def monthly_users_chart(users,waiters,n)
-      monthly_users_count = Hash[*monthly_users_count(users,waiters,n)[0].flatten]
-      monthly_waiters_count = Hash[*monthly_users_count(users,waiters,n)[1].flatten]
+  def users_chart(users, waiters, limit, interval)
+    users_count = Hash[*eval(interval + "_users_count(users,waiters,limit)[0]").flatten]
+    waiters_count = Hash[*eval(interval + "_users_count(users,waiters,limit)[1]").flatten]
 
-      basic_chart_option.deep_merge({
+    basic_chart_option.deep_merge({
       title: {
-          text: "月ごとのユーザー数"
+          text: title(interval)
       },
       xAxis: {
-          categories: monthly_users_count.keys
+          categories: users_count.keys
       },
       yAxis: {
           title: {
-              text: 'users'
-          }
-      },
-      series: [{
-          name: 'ユーザー数',
-          data: monthly_users_count.values
-      },
-      {
-          name: 'ウエイター数',
-          data: monthly_waiters_count.values
-      }]
-    })
-  end
-
-  def daily_users_chart(users,waiters,n)
-      daily_users_count = Hash[*daily_users_count(users,waiters,n)[0].flatten]
-      daily_waiters_count = Hash[*daily_users_count(users,waiters,n)[1].flatten]
-      basic_chart_option.deep_merge({
-      title: {
-          text: "最近1ヶ月のユーザー推移"
-      },
-      xAxis: {
-          categories: daily_users_count.keys,
+              text: 'users'           
+          },
           labels: {
             step: 5
           }
       },
-      yAxis: {
-          title: {
-              text: 'users'
-          }
-      },
       series: [{
           name: 'ユーザー数',
-          data: daily_users_count.values
+          data: users_count.values
       },
       {
           name: 'ウエイター数',
-          data: daily_waiters_count.values
+          data: waiters_count.values
       }]
     })
   end
+
+  def title(interval)
+    "月ごとのユーザー増加推移" if interval == "monthly"
+    "最近1ヶ月のユーザー増加推移" if interval == "daily"
+  end 
 
   def basic_chart_option
     @colors           = ["#72b1c0", "#747dc0", "#d24623", "#7ba444", "#dc7b9a", "#e7b727", "#eaa21a", "#999999", "#c42525", "#a6c96a"]
