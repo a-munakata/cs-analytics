@@ -6,8 +6,6 @@ CsAnalytics::Application.routes.draw do
     collection do
       get  'index', :as => 'index'
       post 'index', :as => 'update'
-
     end
-  end
-  
+  end  
 end
