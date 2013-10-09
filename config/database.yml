@@ -14,7 +14,7 @@ development:
   port: 3306
   username: <%= ENV["AWS_RDS_USER"] %>
   password: <%= ENV["AWS_RDS_PASSWORD"] %>
-  reconnect: true
+  reconnect: true  
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -35,7 +35,7 @@ bench:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: <%= "#{ENV["APPLICATION_NAME"]}_production" %>
+  database: <%= "#{ENV["APPLICATION_NAME"]}_bench" %>
   host: <%= ENV["AWS_RDS_HOST"] %>
   port: 3306
   username: <%= ENV["AWS_RDS_USER"] %>
@@ -52,7 +52,7 @@ staging:
   username: <%= ENV["AWS_RDS_USER"] %>
   password: <%= ENV["AWS_RDS_PASSWORD"] %>
   reconnect: true
-  
+
 production:
   adapter: mysql2
   encoding: utf8

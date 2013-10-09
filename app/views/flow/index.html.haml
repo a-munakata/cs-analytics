@@ -1,0 +1,15 @@
+- content_for :body do
+  .flows
+    %ul
+      %li
+        .title サインアップしたユーザー
+        %span= "#{@users_ratio}%"
+      %li
+        .title アカウントを作ったユーザー
+        %span= "#{@signedup_users_ratio}%"
+      %li
+        .title サーベイを1つ以上作ったユーザー
+        %span= "#{@made_surveys_ratio}%"
+      %li
+        .title 有料ユーザー
+        %span= "#{@customers_count_ratio}%"

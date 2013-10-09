@@ -23,9 +23,13 @@
         .control
           %ul
             %li
-              = link_to "#", class: "to_index" do
-                .ir.add add
-                .ir Users
+              = link_to index_activities_url, class: "to_index" do
+                .ir.share activities
+                .ir Activities
+            %li
+              = link_to index_flow_url, class: "to_index" do
+                .ir.share Flow
+                .ir Flow
         .content
           =yield :body
 

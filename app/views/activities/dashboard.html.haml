@@ -1,0 +1,26 @@
+= content_for :body do
+  .result_container
+    %section
+      %h1.user
+        .ir.user
+        Users
+      %ul
+        %li="総ユーザー数 : #{@users_num}"
+        %li="アクティブユーザー/1日 : #{@dau}"
+        %li="アクティブユーザー/1週 : #{@wau}"
+        %li="アクティブユーザー/1月 : #{@mau}"
+    %section
+      %h1.survey
+        .ir.survey
+        Surveys
+      %ul
+        %li="総サーベイ数 : #{@surveys_num}"
+        %li="平均サーベイ数 / ユーザー : #{@surveys_num/@users_num}"
+    %section
+      %h1.customer
+        .ir.customer
+        Customers
+      %ul
+        - @customers_hash.each do |cus|
+          %li="#{cus.keys.first} : #{cus.values.first}"
+
