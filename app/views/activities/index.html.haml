@@ -1,8 +1,5 @@
 = content_for :body do
   - @charts.each do |chart|
     .chart{ data: { chart: chart } }
-  = form_for @users, remote: true do |f|
-    = f.select :name, [["Railsの基礎", "rails_base"], ["Rubyの基礎", "ruby_base"]]
-    = f.submit
-
+  = select nil, nil, 10.times.collect {|n| n + 1}, :prompt => "選択"
 

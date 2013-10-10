@@ -1,15 +1,20 @@
 - content_for :body do
   .flows
+    = ENV['HTTP_REFERER'] || "NONE"
     %ul
       %li
         .title サインアップしたユーザー
         %span= "#{@users_ratio}%"
+        = "(#{@users}users)"
       %li
         .title アカウントを作ったユーザー
-        %span= "#{@signedup_users_ratio}%"
+        %span= "#{@signed_up_users_ratio}%"
+        = "(#{@signed_up_users}users)"
       %li
         .title サーベイを1つ以上作ったユーザー
         %span= "#{@made_surveys_ratio}%"
+        = "(#{@made_surveys}users)"
       %li
         .title 有料ユーザー
         %span= "#{@customers_count_ratio}%"
+        = "(#{@customers_count}users)"

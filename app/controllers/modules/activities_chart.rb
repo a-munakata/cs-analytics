@@ -1,12 +1,12 @@
 #encoding: utf-8
 require 'date'
+require 'modules/basic_chart'
 
 module ActivitiesChart
   include BasicChart
 
-  def users_chart(users, waiters, limit, interval)
-    users_count = Hash[*users_count(users,waiters,limit,interval)[0].compact.flatten]
-    waiters_count = Hash[*users_count(users,waiters,limit,interval)[1].compact.flatten]
+  def users_chart(users, limit, interval)
+    users_count = Hash[*users_count(users,limit,interval)[0].compact.flatten]
 
     chart_data = {
       title: {
@@ -23,10 +23,6 @@ module ActivitiesChart
       series: [{
           name: 'ユーザー数',
           data: users_count.values
-      },
-      {
-          name: 'ウエイター数',
-          data: waiters_count.values
       }]
     }
 
@@ -40,15 +36,15 @@ module ActivitiesChart
       when "monthly"
         "月ごとのユーザー増加推移"
       when "daily"    
-        "最近1ヶ月のユーザー増加推移"    
+        "最近1ヶ月のユーザー増加推移"
     end
   end
 
-  def users_count(users, waiters, n, interval)
+  def users_count(users, n, interval)
     start_period = n - 1
     end_period   = n
-    
-    [users, waiters].collect do |target|
+
+    [users].collect do |target|
       unless target.nil?
         n.times.collect do |m|
           [
